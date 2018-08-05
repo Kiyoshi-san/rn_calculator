@@ -3,21 +3,23 @@ import { StyleSheet, View, Text } from "react-native";
 
 
 import { connect } from "react-redux";
-import { clicouTecla } from "../actions";
 
 class Display extends React.Component {
     constructor(props) {
         super(props);
 
-        // this.state = {
-        //     valor: 0
-        // }
+        this.state = {
+            valor: 0
+        }
     }
 
     render() {
         // const { valor } = this.state;
         const { clicouReducerLocal } = this.props;
-        console.log(clicouReducerLocal);
+        /* this.setState ({
+            valor: clicouReducerLocal
+        }); */
+        console.log(this.props);
         return(
             // <View>
             //     {// todos.map(todo => <Text key={ todo.id }>{ todo.texto }</Text>) }
@@ -77,7 +79,7 @@ const estilo = StyleSheet.create({
     }
 });
 
-
+// CONECTANDO O STATE COM O COMPONENTE DISPLAY PARA TER ACESSO AOS DADOS
 // CONEXÃO DO PROP LOCAL COM O REDUCER - SELECTOR
 /* const mapStateToProps = state => {
     const { clicouReducerLocal } = state;
@@ -85,16 +87,18 @@ const estilo = StyleSheet.create({
 } */
 const mapStateToProps = state => {
 	return {
-        clicouReducerLocal: state.clicouReducer[0]
+        clicouReducerLocal: state.clicouReducer.valor
     };
 }
 
 
 // export default Display;
-// CONEXÃO DO PROP LOCAL COM A ACTION
+// mapStateToProps - ACESSO AO STATE DO REDUX
+// mapDispatchToProps - ENVIO DA DISPATCH PARA ALTERAR O STATE NO REDUX
 export default connect(
-	mapStateToProps/* ,
-	{
-        dispatchClicou: clicouTecla,
-	} */
+    mapStateToProps,
+    // ,{
+    //     dispatchClicou: clicouTecla,
+    // }
+    null
 )(Display);
