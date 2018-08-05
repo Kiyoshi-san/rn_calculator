@@ -6,7 +6,7 @@ const INITIAL_STATE = {
 	valor: 0
 }
 
-const clicouReducer = (state = INITIAL_STATE, action) => {
+const fn_clicouReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case CLICOU_TECLA:
 			/*CRIANDO UM NOVO OBJETO COM TODAS AS PROPRIEDADES QUE TEM NO MEU STATE*/
@@ -20,4 +20,4 @@ const clicouReducer = (state = INITIAL_STATE, action) => {
 }
 
 
-export default clicouReducer;
+export default fn_clicouReducer;
