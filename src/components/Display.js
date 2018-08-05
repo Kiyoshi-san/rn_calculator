@@ -9,7 +9,91 @@ class Display extends React.Component {
         super(props);
 
         this.state = {
-            valor: 0
+            valor: 0,
+            expressaoA: "0" ,
+            expressaoB: "0",
+        }
+    }
+
+    fn_expressaoB() {
+
+    }
+
+    fn_resultado(sinal, expressaoA, expressaoB) {
+        let resultado;
+        switch (sinal) {            
+            case "/" :
+                resultado = expressaoA / expressaoB;
+                expressaoA = 0;
+                expressaoB = 0;
+                return resultado;
+            case "X" :
+                resultado = expressaoA * expressaoB;
+                expressaoA = 0;
+                expressaoB = 0;
+                return resultado;
+            case "-" :
+                resultado = expressaoA - expressaoB;
+                expressaoA = 0;
+                expressaoB = 0;
+                return resultado;
+            case "+" :
+                resultado = expressaoA + expressaoB;
+                expressaoA = 0;
+                expressaoB = 0;
+                return resultado;
+        }
+    }
+
+    validaNumero(valor) {
+        if(/[0-9]/g.test(valor)){
+            this.state.expressaoA += valor;
+            return this.state.expressaoA;
+        } else {
+            switch (valor) {
+                case "CE":
+                    this.state.expressaoA = 0;
+                    return this.state.expressaoA;
+                case "C" :
+                    this.state.expressaoA = 0;
+                    return this.state.expressaoA;
+                case "<-" :
+                    if (this.state.expressaoA.length > 1) {
+                        this.state.expressaoA = this.state.expressaoA.substring(0, this.state.expressaoA.length - 1)
+                    } else {
+                        this.state.expressaoA = 0;
+                    }
+                    return this.state.expressaoA;
+                case "/" :
+                    this.sinal = valor;
+                    this.state.expressaoB += valor;
+                    return this.state.expressaoB;
+                case "X" :
+                    this.sinal = valor;
+                    this.state.expressaoB += valor;
+                    return this.state.expressaoB;
+                case "-" :
+                    this.sinal = valor;
+                    this.state.expressaoB += valor;
+                    return this.state.expressaoB;
+                case "+" :
+                    this.sinal = valor;
+                    this.state.expressaoB += valor;
+                    return this.state.expressaoB;
+                case "+/-" :
+                    this.state.expressaoA *= (-1);
+                    return this.state.expressaoA;
+                case "," :
+                    this.state.expressaoA += ",";
+                    return this.state.expressaoA;
+                case "=" :
+                    const resultado = this.fn_resultado(this.state.sinal, this.state.expressaoA, this.state.expressaoB);
+                    return resultado;
+                default:
+                    this.state.expressaoA = 0;
+                    return this.state.expressaoA;
+                
+            }
         }
     }
 
@@ -19,7 +103,8 @@ class Display extends React.Component {
         /* this.setState ({
             valor: clicouReducerLocal
         }); */
-        console.log(this.props);
+        const valorNaTela = this.validaNumero(clicouReducerLocal);
+        
         return(
             // <View>
             //     {// todos.map(todo => <Text key={ todo.id }>{ todo.texto }</Text>) }
@@ -35,7 +120,7 @@ class Display extends React.Component {
 
             <View style={estilo.display}>
                     <Text style={estilo.textoDisplay}>
-                            { clicouReducerLocal }
+                            { valorNaTela }
                     </Text>
                 {/* { clicouReducerLocal.map (crl => (
                 ))} */}
